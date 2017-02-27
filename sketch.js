@@ -62,10 +62,9 @@ function wallManager() {
     }
 
     // Delete walls at left side of screen.
-    while(walls[0].position_x < 0) {
+    while(walls[0].position_x < -walls[0].width) {
         walls.splice(0,1); // Delete first list item.
     }
-    
     
 }
 
