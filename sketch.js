@@ -11,15 +11,12 @@ var t_max_fall_velocity = 50;
 
 // Terrain Settings
 var ground_height = 200;
-var trumpsWall;
-var bobsWall;
-
+var walls = [];
 
 // Setup (one time only!)
 function setup() {
     createCanvas(windowWidth,windowHeight);
-    trumpsWall = new Wall();
-    bobsWall = new Wall();
+    walls.push( new Wall() );
 
 }
 
@@ -27,9 +24,10 @@ function setup() {
 function draw() {
       background(0);
       drawTerrain();
-      trumpsWall.draw();
-      bobsWall.gapPosition_x = width*3/4;
-      bobsWall.draw();
+      
+      walls[0].move();   
+      walls[0].draw();
+      
       applyGravity();
       drawTrump()
 
