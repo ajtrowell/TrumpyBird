@@ -1,21 +1,25 @@
 // Trumpy Bird State
-t_pos_x = 150; // center position
-t_pos_y = 100; // center position
-t_velocity = 0;
+var t_pos_x = 150; // center position
+var t_pos_y = 100; // center position
+var t_velocity = 0;
 
 // Game Settings
-t_acceleration = .3; // pixesl per second^2
-t_jump_velocity = -10;
-t_size = 50;
-t_max_fall_velocity = 50;
+var t_acceleration = .3; // pixesl per second^2
+var t_jump_velocity = -10;
+var t_size = 50;
+var t_max_fall_velocity = 50;
 
 // Terrain Settings
-ground_height = 200;
+var ground_height = 200;
+var trumpsWall;
+var bobsWall;
 
 
 // Setup (one time only!)
 function setup() {
     createCanvas(windowWidth,windowHeight);
+    trumpsWall = new Wall();
+    bobsWall = new Wall();
 
 }
 
@@ -23,6 +27,9 @@ function setup() {
 function draw() {
       background(0);
       drawTerrain();
+      trumpsWall.draw();
+      bobsWall.gapPosition_x = width*3/4;
+      bobsWall.draw();
       applyGravity();
       drawTrump()
 
