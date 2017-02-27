@@ -10,6 +10,11 @@ this.acceleration = .3; // pixesl per second^2
 this.jump_velocity = -10;
 this.size = 50;
 this.max_fall_velocity = 50;
+
+this.DEBUG = true;
+
+// Trump Image Assets
+this.img_head;
     
 } // constructor
 
@@ -30,6 +35,18 @@ Trump.prototype.applyGravity = function() {
 }
 
 Trump.prototype.draw = function() {
+    // Trump Image
+    push() 
+        imageMode(CENTER);
+        angleMode(DEGREES);
+        translate(this.pos_x,this.pos_y);
+        rotate(20); // Degrees
+        this.img_head.resize(0,200);
+        image(this.img_head,0,0);
+    pop()
+    
+    // Prelim Graphics
+    if(this.DEBUG) {
     push()
         fill(200,0,0); // Red
         // nostroke();
@@ -40,4 +57,12 @@ Trump.prototype.draw = function() {
         stroke(0,200,0); // Green stroke
         point(this.pos_x,this.pos_y);
     pop()
+    }
+
+}
+
+Trump.prototype.preloadImages = function() {
+    // this.img_head = loadImage("assets/trump_hair.jpg");
+    this.img_head = loadImage("assets/trump2.jpg");
+    
 }

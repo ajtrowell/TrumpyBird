@@ -5,12 +5,16 @@ var ground_height = 200;
 var walls = [];
 
 
+// Run before anything else is displayed.
+function preload() {
+    trump = new Trump();
+    trump.preloadImages(); // Preload all image assets.
+}
 
 
 // Setup (one time only!)
 function setup() {
     createCanvas(windowWidth,windowHeight);
-    trump = new Trump();
 }
 
 // Main Loop (60 frames per second!)
@@ -28,7 +32,6 @@ function draw() {
       
       trump.applyGravity();
       trump.draw();
-
 }
 
 
