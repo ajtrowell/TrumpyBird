@@ -1,12 +1,19 @@
 // Wall constructor
-function Wall() {
+function Wall(position_x) {
+
+    // Optional argument
+    if(position_x !== undefined) {
+        this.position_x = position_x;
+    } else {
+        this.position_x = width/2; // Default position
+    }
+
+    this.position_y = height/2; // From 0 to height - ground_height
     this.color = color(128,128,128);
     this.width = 50;
     this.gapSize = 300;
-    this.position_y = height/2; // From 0 to height - ground_height
-    this.position_x = width/2;
-    this.spacing = 500;
-    this.speed = -5;
+    this.spacing = 300;
+    this.speed = -1;
 }
 Wall.prototype.draw = function() {
     push()

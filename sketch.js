@@ -16,7 +16,6 @@ var walls = [];
 // Setup (one time only!)
 function setup() {
     createCanvas(windowWidth,windowHeight);
-    walls.push( new Wall() );
 
 }
 
@@ -24,9 +23,14 @@ function setup() {
 function draw() {
       background(0);
       drawTerrain();
+
+      wallManager(); // Add and remove walls as they enter and leave the screen.
       
-      walls[0].move();   
-      walls[0].draw();
+      // Update all walls position and draw.
+      for (let i=0; i<walls.length; i++) {
+          walls[i].move();
+          walls[i].draw();
+      }
       
       applyGravity();
       drawTrump()
@@ -39,6 +43,30 @@ function keyPressed() {
     if(keyCode == 32) { // Spacebar
         trumpyJump();
     }
+}
+
+function wallManager() {
+    // Add and remove walls as they enter and leave the screen.
+
+    if(walls.length === 0) {
+        walls.push(new Wall(width));
+    }
+    let spacing = walls[0].spacing;
+    let nextPosition;
+
+    // Add walls at right side of screen.
+    if (walls[walls.length -1].position_x < width ) {
+        nextPosition = walls[walls.length - 1].position_x + spacing + 1;
+        walls.push(new Wall(nextPosition));
+        console.log("number of walls is " + walls.length);
+    }
+
+    // Delete walls at left side of screen.
+    while(walls[0].position_x < 0) {
+        walls.splice(0,1); // Delete first list item.
+    }
+    
+    
 }
 
 
