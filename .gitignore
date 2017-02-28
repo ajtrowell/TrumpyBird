@@ -1,0 +1,8 @@
+# Vim temp files
+*.swp
+
+# Unused Assets
+unused
+
+# Mac files
+*.DS_Store

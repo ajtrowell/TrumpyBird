@@ -1,14 +1,14 @@
 var trump;
 
 // Terrain Settings
-var ground_height = 200;
+var ground_height = 100;
 var walls = [];
 
 
 // Run before anything else is displayed.
 function preload() {
     trump = new Trump();
-    trump.preloadImages(); // Preload all image assets.
+    trump.preloadAssets(); // Preload all image assets.
 }
 
 
