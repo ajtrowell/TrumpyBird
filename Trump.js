@@ -11,11 +11,11 @@ this.acceleration = .3; // pixesl per second^2
 this.jump_velocity = -10;
 this.size = 50;
 this.max_fall_velocity = 50;
-this.rotationRate = -40; // Degrees per second, while falling
+this.rotationRate = -50; // Degrees per second, while falling
 this.rotationMax = 30; // Degrees up when jumping.
-this.rotationMin = -40; // Degrees down when falling.
+this.rotationMin = -50; // Degrees down when falling.
 
-this.DEBUG = true; // Show debug outlines.
+this.DEBUG = false; // Show debug outlines.
 
 // Trump Art Assets
 this.img_head;
@@ -55,8 +55,8 @@ Trump.prototype.draw = function() {
         imageMode(CENTER);
         angleMode(DEGREES);
         translate(this.pos_x,this.pos_y);
-        // rotate(20); // Degrees
         rotate(-this.rotation);
+        rotate(-20); // Extra rotation, to level image
         this.img_head.resize(0,150);
         image(this.img_head,0,0);
     pop()
@@ -90,7 +90,7 @@ Trump.prototype.playFart = function() {
 Trump.prototype.preloadAssets = function() {
     // this.img_head = loadImage("assets/trump_hair.jpg");
     
-    this.img_head = loadImage("assets/trump2.jpg");
+    this.img_head = loadImage("assets/trump2.png");
 
     this.fart_death = loadSound('assets/sounds/lotafarts.ogg');
 
