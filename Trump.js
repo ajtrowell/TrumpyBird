@@ -1,8 +1,8 @@
 // Trumpy Bird Constructor
 function Trump() {
 // Trumpy Bird State
-this.pos_x = 150; // center position
-this.pos_y = 100; // center position
+this.position_x = 150; // center position
+this.position_y = 100; // center position
 this.velocity = 0;
 this.rotation = 0; // Rotation reversed to be counter clockwise, positive for up.
 
@@ -10,6 +10,7 @@ this.rotation = 0; // Rotation reversed to be counter clockwise, positive for up
 this.acceleration = .3; // pixesl per second^2
 this.jump_velocity = -10;
 this.size = 50;
+this.radius = 100; //Math.sqrt(this.size);
 this.max_fall_velocity = 50;
 this.rotationRate = -50; // Degrees per second, while falling
 this.rotationMax = 30; // Degrees up when jumping.
@@ -20,8 +21,9 @@ this.DEBUG = false; // Show debug outlines.
 // Trump Art Assets
 this.img_head;
 this.sound_fart = [];
-this.fart_death; // Sound to play at death.
 this.fart_index = 0; // Keep track of last fart played.
+this.sound_death = [];
+this.death_index = 0;
     
 } // constructor
 
@@ -36,10 +38,10 @@ Trump.prototype.applyGravity = function() {
         this.velocity += this.acceleration;
     }
 
-    this.pos_y += this.velocity;
-    if( (this.pos_y +this.size/2) > (height - ground_height)) {
+    this.position_y += this.velocity;
+    if( (this.position_y +this.size/2) > (height - ground_height)) {
         this.velocity = 0;
-        this.pos_y = height - ground_height - this.size/2;
+        this.position_y = height - ground_height - this.size/2;
     }
 
     this.rotation += this.rotationRate / frameRate();
@@ -54,7 +56,7 @@ Trump.prototype.draw = function() {
     push() 
         imageMode(CENTER);
         angleMode(DEGREES);
-        translate(this.pos_x,this.pos_y);
+        translate(this.position_x,this.position_y);
         rotate(-this.rotation);
         rotate(-20); // Extra rotation, to level image
         this.img_head.resize(0,150);
@@ -66,12 +68,12 @@ Trump.prototype.draw = function() {
     push()
         fill(200,0,0); // Red
         // nostroke();
-        rect(this.pos_x-this.size/2,this.pos_y-this.size/2,this.size,this.size);
+        rect(this.position_x-this.size/2,this.position_y-this.size/2,this.size,this.size);
     pop()
     push()
         fill(0,250,0); // Green
         stroke(0,200,0); // Green stroke
-        point(this.pos_x,this.pos_y);
+        point(this.position_x,this.position_y);
     pop()
     }
 
@@ -87,13 +89,38 @@ Trump.prototype.playFart = function() {
     }
 }
 
+Trump.prototype.deathEvent = function() {
+    
+    // Verify that last death sound isn't still playing.
+    if(this.sound_death[this.death_index].isPlaying()) {
+        return true; //Last death sound still playing! Exit!
+    }
+    // Increment and wrap this.death_index if it overflows.
+    // Won't increment if current sound is playing.
+    if (++this.death_index >= this.sound_death.length) { this.death_index = 0; }
+
+    // Play next sound
+    this.sound_death[this.death_index].setVolume(1);
+    this.sound_death[this.death_index].play();
+
+}
+
 Trump.prototype.preloadAssets = function() {
     // this.img_head = loadImage("assets/trump_hair.jpg");
     
     this.img_head = loadImage("assets/trump2.png");
 
-    this.fart_death = loadSound('assets/sounds/lotafarts.ogg');
+    // Trump Quotes for death sounds.
+    // this.sound_death.push( loadSound('assets/sounds/lotafarts.ogg'));
+    this.sound_death.push( loadSound('assets/sounds/trump_voice/get_out_of_here.wav'));
+    this.sound_death.push( loadSound('assets/sounds/trump_voice/no_you\'re_finished.wav'));
+    this.sound_death.push( loadSound('assets/sounds/trump_voice/the_american_dream_is_dead.wav'));
+    this.sound_death.push( loadSound('assets/sounds/trump_voice/I_beat_China_all_the_time.wav'));
+    this.sound_death.push( loadSound('assets/sounds/trump_voice/Mexico.wav'));
+    this.sound_death.push( loadSound('assets/sounds/trump_voice/nobody_will_be_tougher_on_isis_than_donald_trump.wav'));
+    this.sound_death.push( loadSound('assets/sounds/trump_voice/you\'ll_get_bored_with_winning.wav'));
 
+    // Fart sounds for jumping
     this.sound_fart.push( loadSound('assets/sounds/Another Fart-SoundBible.com-322027286.mp3') );
     this.sound_fart.push( loadSound('assets/sounds/Sharp Fart-SoundBible.com-359497364.mp3') );
     this.sound_fart.push( loadSound('assets/sounds/Bronx Cheer-SoundBible.com-524243477.mp3') );

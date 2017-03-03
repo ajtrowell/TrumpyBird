@@ -46,3 +46,27 @@ Wall.prototype.move = function() {
     this.position_x += this.speed;
 }
 
+Wall.prototype.isHitBy = function(trumpObject) {
+    // Detect whether Trump object has 
+    // collided with this wall instance.
+    // var rectTopWall = [this.position_x - this.width/2, 0, this.width, 
+    //         this.position_y - this.gapSize/2];
+    // var rectBottomWall  = [this.position_x - this.width/2, 
+    //         this.position_y + this.gapSize/2, 
+    //         this.width, height - (this.position_y + this.gapSize/2)];
+    // var circle = [trumpObject.position_x, trumpObject.position_y,
+    //         trumpObject.radius];
+        
+    var hitTop = collideRectCircle(this.position_x - this.width/2, 0, this.width, 
+            this.position_y - this.gapSize/2,
+            trumpObject.position_x, trumpObject.position_y,
+            trumpObject.radius);
+    var hitBottom = collideRectCircle(this.position_x - this.width/2, 
+            this.position_y + this.gapSize/2, this.width, 
+            height - (this.position_y + this.gapSize/2),
+            trumpObject.position_x, trumpObject.position_y,
+            trumpObject.radius);
+            
+    return hitTop || hitBottom;
+}
+

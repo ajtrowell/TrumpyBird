@@ -15,10 +15,12 @@ function preload() {
 // Setup (one time only!)
 function setup() {
     createCanvas(windowWidth,windowHeight);
+    collideDebug(true);
 }
 
 // Main Loop (60 frames per second!)
 function draw() {
+    var isHit = false; // Initialize to false
       background(0);
       drawTerrain();
 
@@ -28,7 +30,10 @@ function draw() {
       for (let i=0; i<walls.length; i++) {
           walls[i].move();
           walls[i].draw();
+          isHit |= walls[i].isHitBy(trump); // True if hit by any wall.
       }
+      trump.DEBUG = isHit; // Show debug overlay when hit.
+      if (isHit) {trump.deathEvent();} // Perform Death functions and sounds.
       
       trump.applyGravity();
       trump.draw();
