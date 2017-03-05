@@ -14,7 +14,13 @@ function preload() {
 
 // Setup (one time only!)
 function setup() {
-    createCanvas(windowWidth,windowHeight);
+    // createCanvas(windowWidth,windowHeight);
+    var heightSetting = 800;
+    var widthSetting = heightSetting*windowWidth/windowHeight;
+    const canvasElt = createCanvas(widthSetting, heightSetting).elt;
+    canvasElt.style.width = '100%', canvasElt.style.height = '100%';
+    background(0100);
+    
     collideDebug(true);
 }
 
@@ -48,6 +54,11 @@ function keyPressed() {
     if(keyCode == 32) { // Spacebar
         trump.jump();
     }
+}
+
+function mousePressed() {
+    // Captures mouse clicks and touchscreen inputs.
+    trump.jump();
 }
 
 
