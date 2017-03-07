@@ -61,6 +61,11 @@ function mousePressed() {
     trump.jump();
 }
 
+function touchStarted() {
+    // Captures touchscreen inputs.
+    trump.jump();
+}
+
 
 
 
