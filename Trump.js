@@ -8,7 +8,7 @@ this.rotation = 0; // Rotation reversed to be counter clockwise, positive for up
 
 // Game Settings
 this.acceleration = .3; // pixesl per second^2
-this.jump_velocity = -10;
+this.jump_velocity = -9;
 this.size = 50;
 this.radius = 100; //Math.sqrt(this.size);
 this.max_fall_velocity = 50;
