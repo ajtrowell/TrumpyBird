@@ -1,4 +1,5 @@
 var trump;
+var isTouched = false; // Flip flop logic, prevent double tap.
 
 // Terrain Settings
 var ground_height = 100;
@@ -56,16 +57,34 @@ function keyPressed() {
     }
 }
 
+
+// Mouse Input
 function mousePressed() {
     // Captures mouse clicks and touchscreen inputs.
-    trump.jump();
+    touch();
+}
+function mouseReleased() {
+    unTouch();
 }
 
 function touchStarted() {
     // Captures touchscreen inputs.
-    trump.jump();
+    touch();
+}
+function touchEnded() {
+    unTouch();
 }
 
+// Implementing flip flop type logic.
+function touch() {
+    if (!isTouched) {
+        isTouched = true;
+        trump.jump();
+    }
+}
+function unTouch() {
+    isTouched = false;
+}
 
 
 
